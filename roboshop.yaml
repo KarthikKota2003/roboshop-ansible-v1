@@ -18,3 +18,12 @@
       region: us-east-1
     loop: "{{instances}}"
     when: action=="create"
+    register: ec2_output
+  
+  - name: Printing ec2 creation results
+    debug:
+      msg: "{{ec2_output}}"
+
+  # - name: Creating DNS records for instances
+  #   loop: "{{instances}}"
+  #   when: action=="create" 
