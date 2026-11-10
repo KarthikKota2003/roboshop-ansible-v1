@@ -1,0 +1,13 @@
+- name: Creating or Deleting EC2 instances
+  hosts: local
+  connection: local
+  vars:
+    instances: ['mongodb','redis','rabbitmq','mysql']
+    action: create
+    domain: kartheekops92.online
+  tasks:
+  - name: Creating instances
+    debug:
+      msg: "{{item}}:{{action}}"
+    loop: "{{instances}}"
+    when: action=="create"
