@@ -24,6 +24,13 @@
     debug:
       msg: "{{ec2_output}}"
 
-  # - name: Creating DNS records for instances
-  #   loop: "{{instances}}"
-  #   when: action=="create" 
+  - name: Creating DNS records for instances
+    amazon.aws.route53:
+      state: present
+      zone: "{{domain}}"
+      record: "{{item.item}}.{{domain}}"
+      type: A
+      ttl: 1
+      value: "{{item.instances[0].private_ip_address}}"
+    loop: "{{ec2_output.results}}"
+    when: action=="create" 
