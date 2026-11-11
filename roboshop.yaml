@@ -7,7 +7,7 @@
     domain: kartheekops92.online
     ami_id: ami-0055977a6e828a4f4
   tasks:
-  - name: Creating instances
+  - name: Creating EC2 instances
     amazon.aws.ec2_instance:
       name: "roboshop-{{item}}"
       image_id: "{{ami_id}}"
@@ -19,12 +19,8 @@
     loop: "{{instances}}"
     when: action=="create"
     register: ec2_output
-  
-  - name: Printing ec2 creation results
-    debug:
-      msg: "{{ec2_output}}"
 
-  - name: Creating DNS records for instances
+  - name: Creating R53 records for instances
     amazon.aws.route53:
       state: present
       zone: "{{domain}}"
@@ -35,3 +31,29 @@
       overwrite: true
     loop: "{{ec2_output.results}}"
     when: action=="create" 
+  
+  - name: Deleting R53 records for instances
+    amazon.aws.route53:
+      state: absent
+      zone: "{{domain}}"
+      record: "{{item}}.{{domain}}"
+      ttl: 1
+      type: A
+    loop: "{{instances}}"
+    when: action=="delete"
+  
+  # - name: Deleting EC2 instances
+  #   amazon.aws.ec2_instance:
+  #     state: absent
+  #     instance_id: "{{item.instance_ids[0]}}"
+  #   loop: "{{ec2_output.results}}"
+  #   when: action=="delete"
+
+  - name: Deleting EC2 instances
+    amazon.aws.ec2_instance:
+      state: absent
+      name: "roboshop-{{item}}"
+      region: us-east-1
+      wait: false
+    loop: "{{instances}}"
+    when: action=="delete"
