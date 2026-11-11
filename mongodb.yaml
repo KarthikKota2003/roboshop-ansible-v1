@@ -1,5 +1,8 @@
 - name: Configuring Mongodb instance
   hosts: mongodb
   tasks:
-  - name: Testing connectivity
-    ping:
+  - name: Copying mongo.repo file to roboshop-mongodb server
+    src: mongo.repo
+    dest: /etc/yum.repos.d/mongo.repo
+  
+  # - name: Installing mongodb
