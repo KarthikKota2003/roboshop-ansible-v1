@@ -19,7 +19,7 @@
   - name: Disabling protected mode
     replace:
       path: /etc/redis/redis.conf
-      regexp: '^#?protected-mode yes\s+'
+      regexp: '^#?protected-mode yes'
       replace: 'protected-mode no'
   
   - name: Starting redis service
