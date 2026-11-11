@@ -1,5 +1,6 @@
 - name: Configuring Mongodb instance
   hosts: mongodb
+  become: yes
   tasks:
   - name: Copying mongo.repo file to roboshop-mongodb server
     copy:
