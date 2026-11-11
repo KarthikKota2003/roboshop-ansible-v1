@@ -42,18 +42,19 @@
     loop: "{{instances}}"
     when: action=="delete"
   
-  - name: Deleting EC2 instances
-    amazon.aws.ec2_instance:
-      state: absent
-      instance_id: "{{item.instance_ids[0]}}"
-    loop: "{{ec2_output.results}}"
-    when: action=="delete"
-
+  # The reason this does not work is because ec2_output is not registered while action is delete 
   # - name: Deleting EC2 instances
   #   amazon.aws.ec2_instance:
   #     state: absent
-  #     name: "roboshop-{{item}}"
-  #     region: us-east-1
-  #     wait: false
-  #   loop: "{{instances}}"
+  #     instance_id: "{{item.instance_ids[0]}}"
+  #   loop: "{{ec2_output.results}}"
   #   when: action=="delete"
+
+  - name: Deleting EC2 instances
+    amazon.aws.ec2_instance:
+      state: absent
+      name: "roboshop-{{item}}"
+      region: us-east-1
+      wait: false
+    loop: "{{instances}}"
+    when: action=="delete"
