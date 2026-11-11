@@ -1,0 +1,5 @@
+- name: Configuring Mongodb instance
+  hosts: mongodb
+  tasks:
+  - name: Testing connectivity
+    ping:
