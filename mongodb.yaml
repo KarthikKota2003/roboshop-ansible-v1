@@ -2,7 +2,8 @@
   hosts: mongodb
   tasks:
   - name: Copying mongo.repo file to roboshop-mongodb server
-    src: mongo.repo
-    dest: /etc/yum.repos.d/mongo.repo
+    copy:
+      src: mongo.repo
+      dest: /etc/yum.repos.d/mongo.repo
   
   # - name: Installing mongodb
