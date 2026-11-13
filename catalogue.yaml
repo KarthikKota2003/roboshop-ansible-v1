@@ -35,4 +35,5 @@
   - name: Creating /app directory
     file:
       path: /app
+      state: present
       
