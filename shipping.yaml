@@ -22,3 +22,16 @@
   - name: Printing output
     debug:
       msg: "{{ java_path.stdout }}"
+  
+  - name: Setting java 25 as java version 
+    command: alternatives set java "{{ java_path.stdout }}"
+
+  - name: Set JAVA_HOME variable
+    copy:
+      content: "export JAVA_HOME={{ java_path.stdout| dirname | dirname }}"
+      dest: /etc/profile.d/java.sh
+  
+  - name: Setting JAVA_HOME in current shell
+    command: source /etc/profile.d/java.sh
+
+    
