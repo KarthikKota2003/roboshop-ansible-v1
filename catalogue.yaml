@@ -36,4 +36,24 @@
     file:
       path: /app
       state: directory
+  
+  - name: Downloading zip file
+    get_url:
+      url: https://raw.githubusercontent.com/daws-92s/roboshop-documentation/refs/heads/main/artifacts/catalogue-v4.zip
+      dest: /tmp/catalogue.zip
+    
+  - name: Unzipping catalogue.zip 
+    archive:
+      src: /tmp/catalogue.zip
+      dest: /app
+      remote_src: yes
+  
+  - name: Installing dependencies
+    community.general.npm:
+      path: /app
+  
+  - name: Copying catalogue service file
+    template:
+      src: catalogue.service.j2
+      dest: /etc/systemd/system/catalogue.service
       
