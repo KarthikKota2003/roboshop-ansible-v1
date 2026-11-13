@@ -34,3 +34,44 @@
   - name: Setting JAVA_HOME in current shell
     shell: source /etc/profile.d/java.sh
 
+  - name: Creating roboshop system user
+    user:
+      name: roboshop
+      system: true
+      create_home: false
+      home: /app
+      shell: /sbin/nologin
+      state: present
+  
+  - name: Removing /app directory 
+    file: 
+      path: /app
+      state: absent
+  
+  - name: Deleting .zip file
+    file:
+      path: /tmp/shipping.zip
+      state: absent   
+  
+  - name: Creating /app directory
+    file:
+      path: /app
+      state: directory
+  
+  - name: Downloading zip file
+    get_url:
+      url: https://raw.githubusercontent.com/daws-92s/roboshop-documentation/refs/heads/main/artifacts/shipping-v4.zip
+      dest: /tmp/shipping.zip
+    
+  - name: Unzipping shipping.zip 
+    unarchive:
+      src: /tmp/shipping.zip
+      dest: /app
+      remote_src: yes
+
+  - name: Building the application
+    command: mvn clean package
+    args:
+      chdir: /app
+
+
