@@ -43,7 +43,7 @@
       dest: /tmp/catalogue.zip
     
   - name: Unzipping catalogue.zip 
-    archive:
+    unarchive:
       src: /tmp/catalogue.zip
       dest: /app
       remote_src: yes
