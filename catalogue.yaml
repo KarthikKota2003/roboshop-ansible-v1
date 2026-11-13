@@ -84,4 +84,8 @@
   - name: Print variable
     debug:
       msg: "{{product_output}}"
+  
+  - name: Loading data
+    shell: mongosh --host "{{ mongodb_host }}" </app/db/master-data.js
+    when: product_output.stdout | int == 0
       
