@@ -21,4 +21,4 @@
   
   - name: Printing output
     debug:
-      msg: "{{ java_path }}"
+      msg: "{{ java_path.stdout }}"
