@@ -1,0 +1,38 @@
+- name: Configuring Catalogue server
+  hosts: catalogue
+  become: yes
+  tasks:
+  - name: Disabling default nodejs
+    command: dnf module disable nodejs -y
+  
+  - name: Enabling nodejs v24
+    command: dnf module enable nodejs:24 -y
+  
+  - name: Installing nodejs
+    dnf:
+      name: nodejs
+      state: present
+
+  - name: Creating roboshop system user
+    user:
+      name: roboshop
+      system: true
+      create_home: false
+      home: /app
+      shell: /sbin/nologin
+      state: present
+  
+  - name: Removing /app directory 
+    file: 
+      path: /app
+      state: absent
+  
+  - name: Deleting .zip file
+    file:
+      path: /tmp/catalogue.zip`
+      state: absent   
+  
+  - name: Creating /app directory
+    file:
+      path: /app
+      
