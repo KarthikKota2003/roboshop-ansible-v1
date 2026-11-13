@@ -24,7 +24,7 @@
       msg: "{{ java_path.stdout }}"
   
   - name: Setting java 25 as java version 
-    command: alternatives set java "{{ java_path.stdout }}"
+    command: alternatives --set java "{{ java_path.stdout }}"
 
   - name: Set JAVA_HOME variable
     copy:
@@ -34,4 +34,3 @@
   - name: Setting JAVA_HOME in current shell
     command: source /etc/profile.d/java.sh
 
-    
