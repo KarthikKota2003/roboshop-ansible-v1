@@ -66,4 +66,22 @@
       name: catalogue
       state: restarted
       enabled: yes
+  
+  - name: Copying mongo.repo
+    copy:
+      src: mongo.repo
+      dest: /etc/yum.repos.d/mongo.repo
+  
+  - name: Installing mongodb client
+    dnf:
+      name: mongodb-mongosh 
+      state: present
+  
+  - name: Check data already loaded or not
+    command: mongosh --host <MONGODB-SERVER-IPADDRESS> --quiet --eval 'db.getSiblingDB("catalogue").products.countDocuments()'
+    register: product_output
+  
+  - name: Print variable
+    debug:
+      msg: "{{product_output}}"
       
