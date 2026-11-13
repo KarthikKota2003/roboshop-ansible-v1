@@ -11,3 +11,14 @@
       - maven
       - java-25-openjdk-devel
       state: present
+  
+  # There may be many subversion of java 25 already installed on target machine. We are taking the first sub-version and 
+  # storing its original file path
+
+  - name: Storing java 25 path
+    shell: readlink -f $(ls /usr/lib/jvm/java-25-openjdk*/bin/java | head -1)
+    register: java_path
+  
+  - name: Printing output
+    debug:
+      msg: "{{ java_path }}"
