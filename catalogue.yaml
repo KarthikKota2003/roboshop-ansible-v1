@@ -29,7 +29,7 @@
   
   - name: Deleting .zip file
     file:
-      path: /tmp/catalogue.zip`
+      path: /tmp/catalogue.zip
       state: absent   
   
   - name: Creating /app directory
