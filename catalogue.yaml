@@ -56,4 +56,14 @@
     template:
       src: catalogue.service.j2
       dest: /etc/systemd/system/catalogue.service
+  
+  - name: Systemctl daemon-reload
+    systemd_service:
+      daemon-reload: true
+  
+  - name: Starting catalogue service
+    service:
+      name: catalogue
+      state: restarted
+      enabled: yes
       
