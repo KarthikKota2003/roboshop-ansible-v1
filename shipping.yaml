@@ -92,6 +92,7 @@
   - name: Checking if data exists or not
     command: mysql -h "{{ mysql_host }}" -u root -p"{{ shipping_db_password }}" -N -B -e "SELECT COUNT(*) FROM cities.cities;"
     register: cities_output
+    ignore_errors: true #if this is not there, then in case of non-existing table further tasks dont proceed
   
   - name: Printing cities output
     debug:
