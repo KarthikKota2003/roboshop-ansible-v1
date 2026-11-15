@@ -3,3 +3,4 @@ ansible_password: DevOps321
 mongodb_host: mongodb.kartheekops92.online
 redis_host: redis.kartheekops92.online
 catalogue_host: catalogue.kartheekops92.online
+mysql_host: mysql.kartheekops92.online

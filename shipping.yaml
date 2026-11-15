@@ -11,6 +11,7 @@
       - maven
       - java-25-openjdk-devel
       - maven-openjdk25
+      - mysql
       state: present
   
   # There may be many subversion of java 25 already installed on target machine. We are taking the first sub-version and 
@@ -78,9 +79,22 @@
     debug:
       msg: "{{ mvn_output }}"
 
-  # - name: Building the application
-  #   command: mvn clean package
-  #   args:
-  #     chdir: /app
+  - name: Building the application
+    command: mvn clean package
+    args:
+      chdir: /app
+  
+  - name: Moving the shipping.jar file
+    command: mv target/shipping.jar shipping.jar
+    args:
+      chdir: /app
+  
+  - name: Checking if data exists or not
+    command: mysql -h "{{ mysql_host }}" -u root -p"{{ shipping_db_password }}" -N -B -e "SELECT COUNT(*) FROM cities.cities;"
+    register: cities_output
+  
+  - name: Printing cities output
+    debug:
+      msg: "{{ cities_output }}"
 
 
