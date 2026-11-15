@@ -2,7 +2,7 @@
   hosts: local
   connection: local
   vars:
-    instances: ['mongodb','redis','rabbitmq','mysql']
+    instances: ['mongodb','redis','rabbitmq','mysql','catalogue','user','cart','shipping','payment','frontend']
     action: create
     domain: kartheekops92.online
     ami_id: ami-0055977a6e828a4f4
