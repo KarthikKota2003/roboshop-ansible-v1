@@ -35,6 +35,11 @@
       state: absent
     loop: "{{ directory_contents.files }}"
   
+  - name: Deleting .zip file if exists
+    file:
+      name: /tmp/frontend.zip
+      state: absent 
+  
   - name: Downloading .zip file
     get_url:
       url: https://raw.githubusercontent.com/daws-92s/roboshop-documentation/refs/heads/main/artifacts/frontend-v4.zip
