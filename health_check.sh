@@ -9,7 +9,8 @@ backend_list=("catalogue" "user" "cart" "shipping" "payment")
 for module in "${module_available[@]}";
 do
     if [[ " ${backend_list[@]} " =~ " ${module} " ]];then
-        echo "${module}.yaml is available"
+        echo "${module}.yaml is available\n"
         curl  http://"${module}"."${domain}":8080/health
+        echo "\n"
     fi
 done 
