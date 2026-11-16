@@ -32,6 +32,18 @@
     loop: "{{ec2_output.results}}"
     when: action=="create" 
   
+  - name: Creating R53 public record for frontend
+    amazon.aws.route53:
+      state: present
+      zone: "{{domain}}"
+      record: "{{domain}}"
+      type: A
+      ttl: 1
+      value: "{{item.instances[0].public_ip_address}}"
+      overwrite: true
+    loop: "{{ec2_output.results}}"
+    when: action=="create" and item.item == "frontend"
+  
   - name: Deleting R53 records for instances
     amazon.aws.route53:
       state: absent
@@ -41,6 +53,16 @@
       type: A
     loop: "{{instances}}"
     when: action=="delete"
+
+  - name: Deleting R53 public record for frontend
+    amazon.aws.route53:
+      state: absent
+      zone: "{{domain}}"
+      record: "{{domain}}"
+      ttl: 1
+      type: A
+    loop: "{{instances}}"
+    when: action=="delete" and item == "frontend"
   
   # The reason this does not work is because ec2_output is not registered while action is delete 
   # - name: Deleting EC2 instances

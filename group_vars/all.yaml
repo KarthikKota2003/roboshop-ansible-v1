@@ -5,3 +5,5 @@ redis_host: redis.kartheekops92.online
 catalogue_host: catalogue.kartheekops92.online
 mysql_host: mysql.kartheekops92.online
 cart_host: cart.kartheekops92.online
+rabbitmq_host: rabbitmq.kartheekops92.online
+user_host: user.kartheekops92.online

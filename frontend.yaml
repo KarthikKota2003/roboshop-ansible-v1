@@ -1,0 +1,17 @@
+- name: Configuring frontend server
+  hosts: frontend
+  become: yes
+  tasks:
+  - name: Enable nginx1.26  
+    command: dnf module enable nginx:1.26 -y
+  
+  - name: Installing nginx
+    dnf:
+      name: nginx
+      state: present
+  
+  - name: Starting nginx
+    service:
+      name: nginx
+      state: restarted
+      enabled: true
