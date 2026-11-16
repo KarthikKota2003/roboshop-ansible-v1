@@ -8,4 +8,5 @@ for module in module_available;
 do
     if [[ " ${backend_list[@]} " =~ " ${module} " ]];then
         echo "${module}.yaml is available"
+    fi
 done 
