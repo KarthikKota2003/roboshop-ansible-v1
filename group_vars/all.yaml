@@ -4,3 +4,4 @@ mongodb_host: mongodb.kartheekops92.online
 redis_host: redis.kartheekops92.online
 catalogue_host: catalogue.kartheekops92.online
 mysql_host: mysql.kartheekops92.online
+cart_host: cart.kartheekops92.online
