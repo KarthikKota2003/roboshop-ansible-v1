@@ -7,3 +7,5 @@ mysql_host: mysql.kartheekops92.online
 cart_host: cart.kartheekops92.online
 rabbitmq_host: rabbitmq.kartheekops92.online
 user_host: user.kartheekops92.online
+shipping_host: shipping.kartheekops92.online
+payment_host: payment.kartheekops92.online
