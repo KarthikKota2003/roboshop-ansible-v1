@@ -101,5 +101,23 @@
   - name: Loading data into mysql`
     shell: mysql -h "{{ mysql_host }}" -uroot -p"{{ shipping_db_password }}" < /app/db/master-data.sql
     when: cities_output.rc !=0 or cities_output.stdout | int == 0
+  
+  - name: Creating shipping app user in mysql
+    shell: mysql -h "{{ mysql_host }}" -uroot -p"{{ shipping_db_password }}" < /app/db/app-user.sql
+  
+  - name: Configuring shipping.service file
+    template:
+      src: shipping.service.j2
+      dest: /etc/systemd/system/shipping.service
+  
+  - name: Daemon reload
+    systemd_service:
+      daemon_reload: true
+  
+  - name: Starting shipping.service
+    service:
+      name: shipping
+      state: restarted
+      enabled: yes
 
 
